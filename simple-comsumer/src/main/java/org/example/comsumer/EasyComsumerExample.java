@@ -2,11 +2,12 @@ package org.example.comsumer;
 
 import org.example.common.model.User;
 import org.example.common.services.UserService;
+import org.example.rpc.proxy.ServiceProxyFactory;
 
 public class EasyComsumerExample {
     public static void main(String[] args) {
-        //todo 获取具体userservice
-        UserService userService = null;
+        //动态代理
+        UserService userService = ServiceProxyFactory.getProxy(UserService.class);
         User user = new User();
         user.setName("小马");
         User newuser = userService.getUser(user);
@@ -15,7 +16,7 @@ public class EasyComsumerExample {
 
         }
         else{
-            System.out.println("newuser == nu;;");
+            System.out.println("newuser == null");
         }
 
 

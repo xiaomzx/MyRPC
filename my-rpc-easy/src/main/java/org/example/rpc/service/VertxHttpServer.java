@@ -11,13 +11,14 @@ public class VertxHttpServer implements  HttpServer{
         io.vertx.core.http.HttpServer httpServer = vertx.createHttpServer();
 
         //处理请求
-        httpServer.requestHandler(request -> {
-            System.out.println( "Recevice Request : " + request.method()+" "+ request.uri());
-
-            //发送http响应
-            request.response().putHeader("content-type","text/plain")
-                    .end("Hello from vert.x HTTP Server");
-        } );
+//        httpServer.requestHandler(request -> {
+//            System.out.println( "Recevice Request : " + request.method()+" "+ request.uri());
+//
+//            //发送http响应
+//            request.response().putHeader("content-type","text/plain")
+//                    .end("Hello from vert.x HTTP Server");
+//        } );
+        httpServer.requestHandler(new HttpServerHandle());
 
         //监听端口，启动服务器
         httpServer.listen(port,asyncResult ->{
