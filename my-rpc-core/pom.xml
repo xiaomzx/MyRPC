@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.example</groupId>
-  <artifactId>simple-provider</artifactId>
+  <artifactId>my-rpc-core</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>simple-provider</name>
+  <name>my-rpc-core</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -15,16 +15,20 @@
   </properties>
 
   <dependencies>
+    <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
     <dependency>
-      <groupId>org.example</groupId>
-      <artifactId>my-rpc-core</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.3.12</version>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/io.vertx/vertx-core -->
     <dependency>
-      <groupId>org.example</groupId>
-      <artifactId>simple-common</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-core</artifactId>
+      <version>4.5.1</version>
     </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -43,6 +47,17 @@
       <version>1.18.30</version>
       <scope>provided</scope>
     </dependency>
-
   </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>8</source>
+          <target>8</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>

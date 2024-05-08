@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/MyRPC.iml" filepath="$PROJECT_DIR$/.idea/MyRPC.iml" />
+      <module fileurl="file://$PROJECT_DIR$/my-rpc-core/my-rpc-easy (1).iml" filepath="$PROJECT_DIR$/my-rpc-core/my-rpc-easy (1).iml" />
+      <module fileurl="file://$PROJECT_DIR$/my-rpc-easy/my-rpc-easy (2).iml" filepath="$PROJECT_DIR$/my-rpc-easy/my-rpc-easy (2).iml" />
     </modules>
   </component>
 </project>
