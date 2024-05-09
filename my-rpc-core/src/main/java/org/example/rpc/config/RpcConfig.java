@@ -1,9 +1,12 @@
 package org.example.rpc.config;
 
 import lombok.Data;
+import org.example.rpc.serializer.SerializerKeys;
 
 @Data
 public class RpcConfig {
+    //序列化器
+    private String serializer = SerializerKeys.JDK;
     /**
      * 模拟调用
      */

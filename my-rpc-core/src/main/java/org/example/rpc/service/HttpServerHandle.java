@@ -4,11 +4,13 @@ import io.vertx.core.Handler;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
+import org.example.rpc.constant.RpcApplication;
 import org.example.rpc.model.RpcRequest;
 import org.example.rpc.model.RpcResponse;
 import org.example.rpc.registry.LocalRegistry;
 import org.example.rpc.serializer.JDKSerializer;
 import org.example.rpc.serializer.Serializer;
+import org.example.rpc.serializer.SerializerFactory;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -18,7 +20,7 @@ public class HttpServerHandle implements Handler<HttpServerRequest> {
     @Override
     public void handle(HttpServerRequest request) {
         //指定序列化器
-        final Serializer serializer = new JDKSerializer();
+        final Serializer serializer = SerializerFactory.getInstant(RpcApplication.getRpcConfig().getSerializer());
         //日志
         System.out.println("Receive Request :"+ request.method()+"  "+ request.uri());
 
