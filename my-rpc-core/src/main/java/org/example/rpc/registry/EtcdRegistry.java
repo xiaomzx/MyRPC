@@ -31,6 +31,10 @@ public class EtcdRegistry implements  Registry{
      * 键储存的根节点
      */
     public static  final String ETCD_ROOT_PATH = "/rpc/";
+    /**
+     * 服务缓存
+     */
+    public static RegistryServiceCache registryServiceCache = new RegistryServiceCache();
 
 
     @Override
@@ -74,17 +78,25 @@ public class EtcdRegistry implements  Registry{
      */
     @Override
     public List<ServiceMetaInfo> serviceDiscover(String serviceKey) {
+        //先从缓存查找服务
+        List<ServiceMetaInfo> ServiceCacheList = registryServiceCache.getNewServiceCache();
+       if(ServiceCacheList != null){
+           return ServiceCacheList;
+       }
+
         //前缀
         String searchPrefix = ETCD_ROOT_PATH+serviceKey+"/";
-
         try {
             GetOption getOption = GetOption.builder().isPrefix(true).build();
             List<KeyValue> keyValues = kvClient.get(ByteSequence.from(searchPrefix, StandardCharsets.UTF_8),getOption).get().getKvs();
 
-            return  keyValues.stream().map(keyValue ->{
+            List<ServiceMetaInfo> serviceMetaInfoList = keyValues.stream().map(keyValue -> {
                 String s = keyValue.getValue().toString(StandardCharsets.UTF_8);
                 return JSONUtil.toBean(s, ServiceMetaInfo.class);
             }).collect(Collectors.toList());
+            //写入缓存
+            registryServiceCache.setNewServiceCache(serviceMetaInfoList);
+            return serviceMetaInfoList;
         } catch (Exception e) {
             throw new RuntimeException("获取服务列表失败",e);
         }
