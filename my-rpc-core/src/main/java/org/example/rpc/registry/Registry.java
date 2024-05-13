@@ -10,6 +10,7 @@ import java.util.concurrent.ExecutionException;
  * 注册中心
  */
 public interface Registry {
+
     void init(RegistryConfig registryConfig);
 
     /**
@@ -35,5 +36,10 @@ public interface Registry {
      * 服务销毁
      */
     void destory();
+
+    /**
+     * 心跳检测
+     */
+    void heartBeat();
 
 }
