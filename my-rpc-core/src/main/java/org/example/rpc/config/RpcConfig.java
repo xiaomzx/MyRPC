@@ -5,6 +5,8 @@ import org.example.rpc.serializer.SerializerKeys;
 
 @Data
 public class RpcConfig {
+    //注册中心配置
+    RegistryConfig registryConfig = new RegistryConfig();
     //序列化器
     private String serializer = SerializerKeys.JDK;
     /**

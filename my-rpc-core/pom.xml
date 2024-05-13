@@ -15,6 +15,13 @@
   </properties>
 
   <dependencies>
+    <!-- https://mvnrepository.com/artifact/io.etcd/jetcd-core -->
+    <dependency>
+      <groupId>io.etcd</groupId>
+      <artifactId>jetcd-core</artifactId>
+      <version>0.7.7</version>
+    </dependency>
+
     <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
@@ -68,6 +75,12 @@
       <version>1.18.30</version>
       <scope>provided</scope>
     </dependency>
+      <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>4.13.2</version>
+          <scope>test</scope>
+      </dependency>
   </dependencies>
   <build>
     <plugins>

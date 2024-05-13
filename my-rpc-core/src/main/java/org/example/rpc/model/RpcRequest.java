@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.rpc.constant.RpcConstant;
 
 import java.io.Serializable;
 @Data
@@ -21,4 +22,6 @@ public class RpcRequest implements Serializable {
      * 参数列表
      */
     private Object[] args;
+
+    private String serviceVersion = RpcConstant.DEFAULT_SERVICE_VERSION;
 }
