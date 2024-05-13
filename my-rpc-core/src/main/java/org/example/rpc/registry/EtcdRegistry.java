@@ -1,12 +1,14 @@
 package org.example.rpc.registry;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.collection.ConcurrentHashSet;
 import cn.hutool.cron.CronUtil;
 import cn.hutool.cron.task.Task;
 import cn.hutool.json.JSONUtil;
 import io.etcd.jetcd.*;
 import io.etcd.jetcd.options.GetOption;
 import io.etcd.jetcd.options.PutOption;
+import io.etcd.jetcd.watch.WatchEvent;
 import org.example.rpc.config.RegistryConfig;
 import org.example.rpc.config.RpcConfig;
 import org.example.rpc.model.ServiceMetaInfo;
@@ -35,7 +37,10 @@ public class EtcdRegistry implements  Registry{
      * 服务缓存
      */
     public static RegistryServiceCache registryServiceCache = new RegistryServiceCache();
-
+    /**
+     * 监听的key集合
+     */
+    public static Set<String> watchingkeySet = new ConcurrentHashSet<>();
 
     @Override
     public void init(RegistryConfig registryConfig) {
@@ -91,8 +96,11 @@ public class EtcdRegistry implements  Registry{
             List<KeyValue> keyValues = kvClient.get(ByteSequence.from(searchPrefix, StandardCharsets.UTF_8),getOption).get().getKvs();
 
             List<ServiceMetaInfo> serviceMetaInfoList = keyValues.stream().map(keyValue -> {
-                String s = keyValue.getValue().toString(StandardCharsets.UTF_8);
-                return JSONUtil.toBean(s, ServiceMetaInfo.class);
+                String s = keyValue.getKey().toString(StandardCharsets.UTF_8);
+                //监听
+                watch(s);
+                String value = keyValue.getValue().toString(StandardCharsets.UTF_8);
+                return JSONUtil.toBean(value, ServiceMetaInfo.class);
             }).collect(Collectors.toList());
             //写入缓存
             registryServiceCache.setNewServiceCache(serviceMetaInfoList);
@@ -151,6 +159,30 @@ public class EtcdRegistry implements  Registry{
         //兼容Quartz表达式
         CronUtil.setMatchSecond(true);
         CronUtil.start();
+    }
+
+    @Override
+    public void watch(String key) {
+        Watch watchClient = client.getWatchClient();
+        //是否已经监听了
+        boolean add = watchingkeySet.add(key);
+        if(add){
+            watchClient.watch(ByteSequence.from(key,StandardCharsets.UTF_8),
+                    watchResponse -> {
+                for(WatchEvent event:watchResponse.getEvents()){
+                    switch (event.getEventType()){
+                        case DELETE:
+                            //清理缓存
+                            registryServiceCache.clearCache();
+                            break;
+                        case PUT:
+                            break;
+                        default: break;
+                    }
+                }
+                    });
+        }
+
     }
 
 }

@@ -28,6 +28,8 @@ public class ConsumerExample
         User user = new User();
         user.setName("小马");
         User newuser = userService.getUser(user);
+         newuser = userService.getUser(user);
+         newuser = userService.getUser(user);
         if(newuser != null){
             System.out.println("comsuner 用户名："+newuser.getName());
 

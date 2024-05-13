@@ -42,4 +42,10 @@ public interface Registry {
      */
     void heartBeat();
 
+    /**
+     * 监听（消费端）
+     * @param key
+     */
+    void watch(String key);
+
 }

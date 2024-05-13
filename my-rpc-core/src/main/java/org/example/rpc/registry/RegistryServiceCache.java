@@ -15,7 +15,7 @@ public class RegistryServiceCache {
      * 清空缓存
      */
     public void clearCache(){
-        newServiceCache.clear();
+        newServiceCache = null;
     }
 
 }
