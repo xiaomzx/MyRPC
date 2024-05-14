@@ -11,6 +11,8 @@ import org.example.rpc.registry.RegistryFactory;
 import org.example.rpc.serializer.Serializer;
 import org.example.rpc.service.HttpServer;
 import org.example.rpc.service.VertxHttpServer;
+import org.example.rpc.service.tcp.VertxTcpClient;
+import org.example.rpc.service.tcp.VertxTcpServer;
 import org.example.rpc.spi.SpiLoader;
 import org.example.rpc.utils.ConfigUtils;
 
@@ -43,9 +45,13 @@ public class ProviderExample {
 
 
         //具体提供服务代码
-        HttpServer httpServer = new VertxHttpServer();
-        System.out.println(RpcApplication.getRpcConfig());
-        httpServer.doStart(RpcApplication.getRpcConfig().getServerPost());
+//        HttpServer httpServer = new VertxHttpServer();
+//        System.out.println(RpcApplication.getRpcConfig());
+//        httpServer.doStart(RpcApplication.getRpcConfig().getServerPost());
+
+        //启动TCP服务
+        VertxTcpServer vertxTcpServer = new VertxTcpServer();
+        vertxTcpServer.doStart(8080);
 
     }
 }
