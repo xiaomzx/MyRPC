@@ -5,10 +5,7 @@ import io.vertx.core.buffer.Buffer;
 import io.vertx.core.net.NetSocket;
 import org.example.rpc.model.RpcRequest;
 import org.example.rpc.model.RpcResponse;
-import org.example.rpc.protocol.ProtocolEncode;
-import org.example.rpc.protocol.ProtocolMessage;
-import org.example.rpc.protocol.ProtocolMessageDecoder;
-import org.example.rpc.protocol.ProtocolMessageTypeEnum;
+import org.example.rpc.protocol.*;
 import org.example.rpc.registry.LocalRegistry;
 
 import java.io.IOException;
@@ -19,7 +16,7 @@ public class TcpServerHandler implements Handler<NetSocket> {
     @Override
     public void handle(NetSocket netSocket) {
         //处理链接
-        netSocket.handler(buffer ->{
+        TcpBufferHandlerWrapper tcpBufferHandlerWrapper = new TcpBufferHandlerWrapper(buffer ->{
             //接受请求，解码
             ProtocolMessage<RpcRequest> protocolMessage;
             try {
@@ -49,6 +46,7 @@ public class TcpServerHandler implements Handler<NetSocket> {
             //发送响应，编码
             ProtocolMessage.Header header = protocolMessage.getHeader();
             header.setType((byte) ProtocolMessageTypeEnum.RESPONSE.getKey());
+            header.setStatus((byte) ProtocolMessageStatusEnum.OK.getValue());
             ProtocolMessage responseProtocolMessage = new ProtocolMessage(header,response);
             try {
                 Buffer encode = ProtocolEncode.encode(responseProtocolMessage);
@@ -58,5 +56,6 @@ public class TcpServerHandler implements Handler<NetSocket> {
             }
 
         });
+        netSocket.handler(tcpBufferHandlerWrapper);
     }
 }

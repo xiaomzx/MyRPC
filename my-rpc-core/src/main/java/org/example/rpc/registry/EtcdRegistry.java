@@ -85,7 +85,7 @@ public class EtcdRegistry implements  Registry{
     public List<ServiceMetaInfo> serviceDiscover(String serviceKey) {
         //先从缓存查找服务
         List<ServiceMetaInfo> ServiceCacheList = registryServiceCache.getNewServiceCache();
-       if(ServiceCacheList != null){
+       if(ServiceCacheList != null && !ServiceCacheList.isEmpty() ){
            return ServiceCacheList;
        }
 
