@@ -1,6 +1,7 @@
 package org.example.rpc.config;
 
 import lombok.Data;
+import org.example.rpc.loadbalancer.LoadBalancerKeys;
 import org.example.rpc.serializer.SerializerKeys;
 
 @Data
@@ -9,6 +10,11 @@ public class RpcConfig {
     RegistryConfig registryConfig = new RegistryConfig();
     //序列化器
     private String serializer = SerializerKeys.JDK;
+    /**
+     * 负载均衡器
+     *
+     */
+    private String loadBalancer = LoadBalancerKeys.ROUND_ROBIN;
     /**
      * 模拟调用
      */

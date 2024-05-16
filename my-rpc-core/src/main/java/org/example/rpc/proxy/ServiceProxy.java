@@ -12,6 +12,8 @@ import org.example.rpc.config.RegistryConfig;
 import org.example.rpc.config.RpcConfig;
 import org.example.rpc.constant.RpcApplication;
 import org.example.rpc.constant.RpcConstant;
+import org.example.rpc.loadbalancer.LoadBalancer;
+import org.example.rpc.loadbalancer.LoadBalancerFactory;
 import org.example.rpc.model.RpcRequest;
 import org.example.rpc.model.RpcResponse;
 import org.example.rpc.model.ServiceMetaInfo;
@@ -26,7 +28,9 @@ import org.example.rpc.service.tcp.VertxTcpClient;
 import java.io.IOException;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -57,8 +61,12 @@ public class ServiceProxy implements InvocationHandler {
             if(CollectionUtil.isEmpty(serviceMetaInfoList)){
                 throw new RuntimeException("暂无服务地址");
             }
-            //先取第一个，负载均衡以后再做
-            ServiceMetaInfo selectServiceMetaInfo = serviceMetaInfoList.get(0);
+            //负载均衡
+            LoadBalancer loadBalancer = LoadBalancerFactory.getInstant(rpcConfig.getLoadBalancer());
+            Map<String,Object> requestParams = new HashMap<>();
+            //以方法名计算出哈希值，如果使用一致性哈希环做负载均衡，则该方法只会有同一服务器处理
+            requestParams.put("methodName",request.getMethodName());
+            ServiceMetaInfo selectServiceMetaInfo = loadBalancer.select(requestParams, serviceMetaInfoList);
             //发送TCP请求
             RpcResponse response = VertxTcpClient.doRequest(request, selectServiceMetaInfo);
             return response.getData();

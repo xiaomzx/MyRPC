@@ -1,9 +1,12 @@
 package org.example.rpc.config;
 
 import lombok.Data;
+import org.example.rpc.loadbalancer.LoadBalancerKeys;
 
 @Data
 public class RegistryConfig {
+
+
     /**
      * 注册中心类别
      */
