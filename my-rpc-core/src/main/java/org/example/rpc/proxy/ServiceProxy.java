@@ -12,6 +12,8 @@ import org.example.rpc.config.RegistryConfig;
 import org.example.rpc.config.RpcConfig;
 import org.example.rpc.constant.RpcApplication;
 import org.example.rpc.constant.RpcConstant;
+import org.example.rpc.fault.retry.RetryStrategy;
+import org.example.rpc.fault.retry.RetryStrategyFactory;
 import org.example.rpc.loadbalancer.LoadBalancer;
 import org.example.rpc.loadbalancer.LoadBalancerFactory;
 import org.example.rpc.model.RpcRequest;
@@ -67,8 +69,14 @@ public class ServiceProxy implements InvocationHandler {
             //以方法名计算出哈希值，如果使用一致性哈希环做负载均衡，则该方法只会有同一服务器处理
             requestParams.put("methodName",request.getMethodName());
             ServiceMetaInfo selectServiceMetaInfo = loadBalancer.select(requestParams, serviceMetaInfoList);
+
+            //重试机制
+            RetryStrategy retryStrategy = RetryStrategyFactory.getInstance(RpcApplication.getRpcConfig().getRetryStrategy());
+            RpcResponse response = retryStrategy.doRetry(() -> VertxTcpClient.doRequest(request, selectServiceMetaInfo));
+
+
             //发送TCP请求
-            RpcResponse response = VertxTcpClient.doRequest(request, selectServiceMetaInfo);
+//            RpcResponse response = VertxTcpClient.doRequest(request, selectServiceMetaInfo);
             return response.getData();
 
         } catch (IOException e) {

@@ -1,11 +1,15 @@
 package org.example.rpc.config;
 
 import lombok.Data;
+import org.example.rpc.fault.retry.RetryStrategyKeys;
 import org.example.rpc.loadbalancer.LoadBalancerKeys;
 import org.example.rpc.serializer.SerializerKeys;
 
 @Data
 public class RpcConfig {
+
+    //重试策略
+    private String retryStrategy = RetryStrategyKeys.FIXEDINTERVAL;
     //注册中心配置
     RegistryConfig registryConfig = new RegistryConfig();
     //序列化器
