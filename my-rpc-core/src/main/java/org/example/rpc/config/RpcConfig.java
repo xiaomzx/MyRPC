@@ -9,7 +9,7 @@ import org.example.rpc.serializer.SerializerKeys;
 public class RpcConfig {
 
     //重试策略
-    private String retryStrategy = RetryStrategyKeys.FIXEDINTERVAL;
+    private String retryStrategy = RetryStrategyKeys.NO;
     //注册中心配置
     RegistryConfig registryConfig = new RegistryConfig();
     //序列化器
