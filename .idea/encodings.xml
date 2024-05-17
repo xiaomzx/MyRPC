@@ -5,6 +5,12 @@
     <file url="file://$PROJECT_DIR$/my-rpc-core/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/my-rpc-easy/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/my-rpc-easy/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my-rpc-springboot-concumer/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my-rpc-springboot-concumer/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my-rpc-springboot-provider/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my-rpc-springboot-provider/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my-rpc-springboot-starter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my-rpc-springboot-starter/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/simple-common/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/simple-common/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/simple-comsumer/src/main/java" charset="UTF-8" />

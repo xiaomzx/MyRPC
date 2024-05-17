@@ -7,11 +7,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="simple-comsumer" />
         <module name="simple-common" />
+        <module name="simple-provider" />
+        <module name="my-rpc-springboot-starter" />
+        <module name="my-rpc-springboot-concumer" />
+        <module name="simple-comsumer" />
         <module name="my-rpc-easy" />
         <module name="my-rpc-core" />
-        <module name="simple-provider" />
+        <module name="my-rpc-springboot-provider" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
