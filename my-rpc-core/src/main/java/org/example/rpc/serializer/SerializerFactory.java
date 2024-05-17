@@ -9,7 +9,7 @@ import java.util.HashMap;
  * 序列化器工厂（用于获取序列化器对象）
  */
 public class SerializerFactory {
-    {
+  static  {
         try {
             SpiLoader.load(Serializer.class);
         } catch (IOException e) {
