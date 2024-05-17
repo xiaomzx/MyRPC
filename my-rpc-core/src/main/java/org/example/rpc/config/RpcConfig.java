@@ -2,12 +2,14 @@ package org.example.rpc.config;
 
 import lombok.Data;
 import org.example.rpc.fault.retry.RetryStrategyKeys;
+import org.example.rpc.fault.tolerant.TolerantStrategyKeys;
 import org.example.rpc.loadbalancer.LoadBalancerKeys;
 import org.example.rpc.serializer.SerializerKeys;
 
 @Data
 public class RpcConfig {
-
+    //容错机制
+    private String tolerantStrategy = TolerantStrategyKeys.FAIL_FAST;
     //重试策略
     private String retryStrategy = RetryStrategyKeys.NO;
     //注册中心配置
