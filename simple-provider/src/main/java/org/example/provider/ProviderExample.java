@@ -29,7 +29,5 @@ public class ProviderExample {
         ServiceRegisterInfo serviceRegisterInfo = new ServiceRegisterInfo(UserService.class.getName(), UserServiceImpl.class);
         serviceMetaInfoList.add(serviceRegisterInfo);
         ProviderBootStrap.init(serviceMetaInfoList);
-
-
     }
 }

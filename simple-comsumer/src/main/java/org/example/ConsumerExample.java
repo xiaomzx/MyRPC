@@ -21,7 +21,6 @@ public class ConsumerExample
 {
     public static void main( String[] args ) throws IOException, ClassNotFoundException {
         ConsumerBootStrap.init();
-
         //动态代理
         UserService userService = ServiceProxyFactory.getProxy(UserService.class);
         User user = new User();

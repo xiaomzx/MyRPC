@@ -84,9 +84,6 @@ public class ServiceProxy implements InvocationHandler {
 
             }
 
-
-            //发送TCP请求
-//            RpcResponse response = VertxTcpClient.doRequest(request, selectServiceMetaInfo);
             return response.getData();
 
         } catch (IOException e) {

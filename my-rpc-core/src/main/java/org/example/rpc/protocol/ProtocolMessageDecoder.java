@@ -44,7 +44,7 @@ public class ProtocolMessageDecoder {
                 return new ProtocolMessage(header,rpcResponse);
             case HEART_BEAT:
             case OTHER:
-            default:throw new RuntimeException("占卜支持消息类型");
+            default:throw new RuntimeException("暂不支持消息类型");
         }
     }
 }
