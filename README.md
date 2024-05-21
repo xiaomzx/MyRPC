@@ -1,5 +1,8 @@
 # MyRPC
 自己搞个RPC试试
+
+![img_7.png](img_7.png)
+
 # 主要的对象
 ![img.png](img.png)
 # Rpc架构
